@@ -1,0 +1,18 @@
+ember,fire,special,40,,,,25
+tackle,normal,physical,40,,,,35
+leer,normal,status,0,opp,def,-1,30
+smog,poison,special,30,,,,20
+pound,normal,physical,40,,,,35
+powder snow,ice,special,40,,,,25
+thunderpunch,electric,special,90,,,,15
+thunder shock,electric,special,30,,,,30
+scratch,normal,physical,40,,,,35
+growl,normal,status,0,opp,att,-1,40
+mud-slap,ground,special,20,,,,10
+water gun,water,special,40,,,,25
+vine whip,grass,physical,45,,,,25
+bubble,water,special,40,,,,30
+withdraw,water,status,0,self,def,1,40
+razor leaf,grass,physical,55,,,,25
+gust,flying,physical,40,,,,35
+tail whip,normal,status,0,opp,def,-1,30

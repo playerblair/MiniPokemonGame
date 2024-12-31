@@ -1,0 +1,9 @@
+fire,ground,water
+normal
+flying,electric
+electric,grass
+ice,fire,water
+poison,ground
+grass,fire,ice,flying
+water,grass,electric
+ground,ice,water,grass
