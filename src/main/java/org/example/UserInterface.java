@@ -29,10 +29,10 @@ public class UserInterface {
         draftPokemon(trainer2);
         sendOutPokemon(trainer1);
         sendOutPokemon(trainer2);
-        while (true) {
+        MAIN_LOOP: while (true) {
             clearScreen();
             if (!(trainer1.hasAvailablePokemon() && trainer2.hasAvailablePokemon())) {
-                break;
+                break MAIN_LOOP;
             }
             if (trainer1.getPokemon() == null) {
                 sendOutPokemon(trainer1);
@@ -49,14 +49,14 @@ public class UserInterface {
             if (trainer1.getPokemon().getSPD().getValue() > trainer2.getPokemon().getSPD().getValue()) {
                 battle(trainer1, trainer2);
                 if (hasPokemonFainted(trainer2)) {
-                    continue;
+                    continue MAIN_LOOP;
                 }
                 battle(trainer2, trainer1);
                 hasPokemonFainted(trainer1);
             } else if ((trainer1.getPokemon().getSPD().getValue() < trainer2.getPokemon().getSPD().getValue())) {
                 battle(trainer2, trainer1);
                 if (hasPokemonFainted(trainer1)) {
-                    continue;
+                    continue MAIN_LOOP;
                 }
                 battle(trainer1, trainer2);
                 hasPokemonFainted(trainer2);
@@ -64,14 +64,14 @@ public class UserInterface {
                 if (random.nextBoolean()) {
                     battle(trainer1, trainer2);
                     if (hasPokemonFainted(trainer2)) {
-                        continue;
+                        continue MAIN_LOOP;
                     }
                     battle(trainer2, trainer1);
                     hasPokemonFainted(trainer1);
                 } else {
                     battle(trainer2, trainer1);
                     if (hasPokemonFainted(trainer1)) {
-                        continue;
+                        continue MAIN_LOOP;
                     }
                     battle(trainer1, trainer2);
                     hasPokemonFainted(trainer2);
@@ -105,11 +105,17 @@ public class UserInterface {
         }
         System.out.println();
         while (trainer.getPokemonList().size() < 3) {
-            int index = -1;
-            while (index < 0 || index >= names.length) {
+            int index;
+            CHOOSE_POKEMON: while (true) {
                 System.out.print("Choose pokemon to add to party: ");
                 String choice = this.scanner.nextLine();
-                index = validateInteger(choice) - 1;
+                Optional<Integer> choiceAsInteger = validateInteger(choice);
+                if (choiceAsInteger.isPresent()) {
+                    index = choiceAsInteger.get() - 1;
+                    if (index >=0 && index < names.length) {
+                        break CHOOSE_POKEMON;
+                    }
+                }
             }
             Pokemon pokemon = this.factory.createPokemon(names[index]);
             trainer.addPokemon(pokemon);
@@ -122,26 +128,26 @@ public class UserInterface {
         System.out.println("Trainer: " + trainer.getName());
         displayBanner("-");
         System.out.println(trainer.getAvailablePokemonAsString());
-        while (true) {
+        SEND_OUT_POKEMON: while (true) {
             System.out.print("Choose pokemon to send out to battle: ");
             String choice = this.scanner.nextLine();
-            int index = validateInteger(choice) - 1;
-            if (index < 0) {
-                continue;
-            }
-            if (trainer.selectPokemon(index)) {
-                break;
+            Optional<Integer> choiceAsInteger = validateInteger(choice);
+            if (choiceAsInteger.isPresent()) {
+                int index = choiceAsInteger.get() - 1;
+                if (trainer.selectPokemon(index)) {
+                    break SEND_OUT_POKEMON;
+                }
             }
         }
         displayBanner("-");
         System.out.println(trainer.getName() + " sends out " + trainer.getPokemon().getName());
     }
 
-    private int validateInteger(String input) {
+    private Optional<Integer> validateInteger(String input) {
         try {
-            return Integer.parseInt(input);
+            return Optional.of(Integer.parseInt(input));
         } catch (NumberFormatException e) {
-            return 0;
+            return Optional.empty();
         }
     }
 
@@ -164,32 +170,29 @@ public class UserInterface {
 
     private void takeCommand(Trainer trainer) {
         Pokemon pokemon = trainer.getPokemon();
-        boolean done = false;
-        while (!done) {
+        boolean done;
+        PROCESS_COMMANDS: while (true) {
             System.out.print("Select option (1, 2, 3, 4, s, c) : ");
             String input = this.scanner.nextLine();
             switch (input) {
                 case "1":
                     done = trainer.setMove(pokemon.selectMove(0));
-                    break;
+                    if (done) { break PROCESS_COMMANDS; }
                 case "2":
                     done = trainer.setMove(pokemon.selectMove(1));
-                    break;
+                    if (done) { break PROCESS_COMMANDS; }
                 case "3":
                     done = trainer.setMove(pokemon.selectMove(2));
-                    break;
+                    if (done) { break PROCESS_COMMANDS; }
                 case "4":
                     done = trainer.setMove(pokemon.selectMove(3));
-                    break;
+                    if (done) { break PROCESS_COMMANDS; }
                 case "s":
                     System.out.println(pokemon.getStatsAsString());
-                    continue;
+                    continue PROCESS_COMMANDS;
                 case "c":
                     sendOutPokemon(trainer);
-                    if (trainer.getPokemon() != pokemon) {
-                        done = true;
-                        break;
-                    }
+                    if (trainer.getPokemon() != pokemon) { break PROCESS_COMMANDS; }
             }
         }
     }
@@ -197,6 +200,9 @@ public class UserInterface {
     public void battle(Trainer i, Trainer j) {
         displayBanner("-");
         Move move = i.getMove();
+        if (move == null) {
+            return;
+        }
         String category = move.getCategory();
         double modifier = 1.0;
         if (category.equals("status")) {

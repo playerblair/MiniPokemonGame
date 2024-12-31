@@ -39,27 +39,27 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Application.org.example.Main.executor": "Run",
-    "JUnit.All in Pokemon.executor": "Run",
-    "JUnit.MoveFactoryTest.executor": "Run",
-    "JUnit.MoveFactoryTest.testMoveFactory.executor": "Debug",
-    "JUnit.MoveTest.executor": "Run",
-    "JUnit.PokemonFactoryTest.executor": "Run",
-    "JUnit.PokemonTest.executor": "Run",
-    "JUnit.PokemonTest.shouldCreateCharmanderWithName.executor": "Debug",
-    "JUnit.StatTest.executor": "Run",
-    "JUnit.UserInterfaceTest.executor": "Run",
-    "JUnit.UserTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.org.example.Main.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Pokemon.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MoveFactoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.MoveFactoryTest.testMoveFactory.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.MoveTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PokemonFactoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PokemonTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PokemonTest.shouldCreateCharmanderWithName.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.StatTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserInterfaceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.UserTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.org.example.Main">
     <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-ea" />
